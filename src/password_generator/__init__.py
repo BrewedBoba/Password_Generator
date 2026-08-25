@@ -12,7 +12,7 @@ def main() -> None:
     symbols = string.punctuation
     all = upper + lower + digits + symbols
 
-    def password_to_generate():
+    def password_to_generate() -> None:
         length_of_password = int(password_length.get())
 
         password = ""
