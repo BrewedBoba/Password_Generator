@@ -1,7 +1,7 @@
 import secrets
 import string
 import tkinter as tk
-from tkinter import StringVar, ttk
+from tkinter import StringVar, ttk, BooleanVar
 
 
 def main() -> None:
@@ -10,14 +10,22 @@ def main() -> None:
     lower = string.ascii_lowercase
     digits = string.digits
     symbols = string.punctuation
-    all = upper + lower + digits + symbols
 
-    def password_to_generate() -> None:
+
+    def password_to_generate(upper: BooleanVar, digits: BooleanVar, symbols: BooleanVar) -> None:
         length_of_password = int(password_length.get())
 
+        character_choices = lower
+        if upper.get():
+            character_choices += upper
+        if digits.get():
+            character_choices += digits
+        if symbols.get():
+            character_choices += symbols
+
         password = ""
-        for i in range(length_of_password):
-            password += " ".join(secrets.choice(all))
+        for _ in range(length_of_password):
+            password += " ".join(secrets.choice(character_choices))
 
         generated_password.set(password)
 
@@ -37,8 +45,19 @@ def main() -> None:
     password_length_entry.grid(column=1, row=1, sticky="W")
     ttk.Button(mainframe, text="Generate", command=password_to_generate).grid(column=2, row=1)
 
+    ttk.Checkbutton(mainframe, text="Include uppercase").grid(column=0, row=2)
+    ttk.Checkbutton(mainframe, text="Include digits").grid(column=1, row=2)
+    ttk.Checkbutton(mainframe, text="Include symbols").grid(column=2, row=2)
+
+    upper = BooleanVar(value=False)
+    digits = BooleanVar(value=False)
+    symbols = BooleanVar(value=False)
+    ttk.Checkbutton(mainframe, text="Include uppercase", variable=upper).grid(column=0, row=2)
+    ttk.Checkbutton(mainframe, text="Include digits", variable=digits).grid(column=1, row=2)
+    ttk.Checkbutton(mainframe, text="Include symbols", variable=symbols).grid(column=2, row=2)
+
     generated_password = StringVar()
-    ttk.Label(mainframe, textvariable=generated_password).grid(row=2, columnspan=3)
+    ttk.Label(mainframe, textvariable=generated_password).grid(row=3, columnspan=3)
 
 
 
