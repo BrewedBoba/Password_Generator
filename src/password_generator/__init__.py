@@ -29,6 +29,7 @@ def main() -> None:
 
     root = tk.Tk()
     root.title("Password Generator")
+    root.geometry("400x200+500-500")
     mainframe = ttk.Frame(root, padding=10)
     mainframe.grid(column=0, row=0, sticky="NWES")
 
