@@ -1,27 +1,21 @@
 import secrets
 import string
 import tkinter as tk
-from tkinter import StringVar, ttk, BooleanVar
+from tkinter import BooleanVar, StringVar, ttk
 
 
 def main() -> None:
 
-    upper = string.ascii_uppercase
-    lower = string.ascii_lowercase
-    digits = string.digits
-    symbols = string.punctuation
-
-
-    def password_to_generate(upper: BooleanVar, digits: BooleanVar, symbols: BooleanVar) -> None:
+    def password_to_generate() -> None:
         length_of_password = int(password_length.get())
 
-        character_choices = lower
+        character_choices = string.ascii_lowercase
         if upper.get():
-            character_choices += upper
+            character_choices += string.ascii_uppercase
         if digits.get():
-            character_choices += digits
+            character_choices += string.digits
         if symbols.get():
-            character_choices += symbols
+            character_choices += string.punctuation
 
         password = ""
         for _ in range(length_of_password):
@@ -45,13 +39,10 @@ def main() -> None:
     password_length_entry.grid(column=1, row=1, sticky="W")
     ttk.Button(mainframe, text="Generate", command=password_to_generate).grid(column=2, row=1)
 
-    ttk.Checkbutton(mainframe, text="Include uppercase").grid(column=0, row=2)
-    ttk.Checkbutton(mainframe, text="Include digits").grid(column=1, row=2)
-    ttk.Checkbutton(mainframe, text="Include symbols").grid(column=2, row=2)
-
     upper = BooleanVar(value=False)
     digits = BooleanVar(value=False)
     symbols = BooleanVar(value=False)
+
     ttk.Checkbutton(mainframe, text="Include uppercase", variable=upper).grid(column=0, row=2)
     ttk.Checkbutton(mainframe, text="Include digits", variable=digits).grid(column=1, row=2)
     ttk.Checkbutton(mainframe, text="Include symbols", variable=symbols).grid(column=2, row=2)
