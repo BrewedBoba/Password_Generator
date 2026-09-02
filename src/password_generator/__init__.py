@@ -1,7 +1,10 @@
 import secrets
 import string
+import time
 import tkinter as tk
 from tkinter import BooleanVar, StringVar, ttk
+
+import pyperclip
 
 
 def main() -> None:
@@ -51,6 +54,6 @@ def main() -> None:
     generated_password = StringVar()
     ttk.Label(mainframe, textvariable=generated_password).grid(row=3, columnspan=3)
 
-
+    ttk.Button(mainframe, text="Copy to clipboard", command=lambda: pyperclip.copy(generated_password.get())).grid(row=4, columnspan=3)
 
     root.mainloop()
