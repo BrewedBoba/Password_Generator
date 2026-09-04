@@ -9,6 +9,12 @@ import pyperclip
 
 def main() -> None:
 
+    def copy_and_clear_clipboard() -> None:
+        pyperclip.copy(generated_password.get())
+        time.sleep(10)
+        pyperclip.copy("")
+
+
     def password_to_generate() -> None:
         length_of_password = int(password_length.get())
 
@@ -54,6 +60,6 @@ def main() -> None:
     generated_password = StringVar()
     ttk.Label(mainframe, textvariable=generated_password).grid(row=3, columnspan=3)
 
-    ttk.Button(mainframe, text="Copy to clipboard", command=lambda: pyperclip.copy(generated_password.get())).grid(row=4, columnspan=3)
+    ttk.Button(mainframe, text="Copy to clipboard", command=copy_and_clear_clipboard).grid(row=4, columnspan=3)
 
     root.mainloop()
